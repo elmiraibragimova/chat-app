@@ -1,0 +1,72 @@
+@import '../../styles/variables';
+
+.board {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--headerheight));
+
+  &__header {
+    padding: 25px 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  &__messages {
+    overflow-y: scroll;
+    flex-grow: 1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__form {
+    height: 80px;
+  }
+}
+
+.form {
+  display: flex;
+  border-top: 1px solid #ccc;
+
+  &__field {
+    flex-grow: 1;
+    resize: none;
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  &__send-button {
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    background-color: #229e7d;
+    font-size: 20px;
+    color: #fff;
+  }
+}
+
+.message {
+  display: flex;
+
+  p {
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+  }
+
+  &_in {
+    p {
+      background-color: #eee;
+    }
+  }
+
+  &_out {
+    p {
+      background-color: #b3e0d4;
+    }
+  }
+}

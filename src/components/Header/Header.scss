@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background-color: #229e7d;
+}
+
+.logout-button {
+  font-size: 20px;
+  color: #fff;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

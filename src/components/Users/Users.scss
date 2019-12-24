@@ -1,0 +1,29 @@
+.users {
+  list-style-type: none;
+  padding-left: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.user {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  &__pic {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding-right: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+}

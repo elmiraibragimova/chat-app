@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './Login/Login'
 import Main from './Main/Main'
-import Profile from './Profile'
+import Profile from './Profile/Profile'
 
 class Router extends Component {
   render() {

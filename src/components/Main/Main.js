@@ -9,7 +9,7 @@ class Main extends Component {
   render() {
     return (
       <section className="layout">
-        <Header className="layout__header" />
+        <Header className="layout__header" history={this.props.history} />
 
         <aside className="layout__sidebar">
           <Users />

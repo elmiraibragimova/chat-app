@@ -4,8 +4,8 @@ import './Header.scss'
 
 class Header extends Component {
   logout = async () => {
-    // await firebase.auth().signOut()
-    // this.props.history.push(`/`)
+    await firebase.auth().signOut()
+    this.props.history.push(`/`)
   }
 
   render() {

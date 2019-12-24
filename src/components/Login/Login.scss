@@ -1,0 +1,13 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+}
+
+.sign-in-button {
+  margin: auto;
+  border: none;
+  padding: 20px 100px;
+  background-color: var(--maincolor);
+  color: #fff;
+  font-size: 20px;
+}

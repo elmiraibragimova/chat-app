@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
-import { firebaseApp } from '../database'
+import { firebaseApp } from '../../database'
+import './Login.scss'
 
 class Login extends Component {
   state = {
@@ -36,8 +37,10 @@ class Login extends Component {
 
   render() {
     return (
-      <article>
-        <button onClick={this.authenticate}>Sign In With Google</button>
+      <article className="login-page">
+        <button className="sign-in-button" onClick={this.authenticate}>
+          Sign In With Google
+        </button>
       </article>
     )
   }

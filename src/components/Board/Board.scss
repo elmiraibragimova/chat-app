@@ -29,7 +29,7 @@
   &__field {
     flex-grow: 1;
     resize: none;
-    border: 0;
+    border: none;
     padding: 10px;
     font-size: 18px;
   }
@@ -38,7 +38,7 @@
     padding-left: 20px;
     padding-right: 20px;
     border: none;
-    background-color: #229e7d;
+    background-color: var(--maincolor);
     font-size: 20px;
     color: #fff;
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
+import { App } from '../../app'
 import './Login.scss'
 
 class Login extends Component {
@@ -29,9 +30,34 @@ class Login extends Component {
   }
 
   authHandler = async res => {
-    let user = res.user
-    if (user) {
-      this.props.history.push(`/main`)
+    const currentUser = res.user
+    if (currentUser) {
+      const user = await firebase
+        .firestore()
+        .collection(App.USERS)
+        .where(App.ID, '==', currentUser.uid)
+        .get()
+
+      if (user.docs.length === 0) {
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(currentUser.uid)
+          .set({
+            id: currentUser.uid,
+            name: currentUser.displayName,
+            photoUrl: currentUser.photoURL
+          })
+          .then(data => {
+            this.setState({ isLoading: false }, () => {
+              this.props.history.push(`/main`)
+            })
+          })
+      } else {
+        this.setState({ isLoading: false }, () => {
+          this.props.history.push(`/main`)
+        })
+      }
     }
   }
 

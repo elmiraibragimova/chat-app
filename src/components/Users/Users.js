@@ -12,7 +12,11 @@ class Users extends Component {
               key={index}
               // onClick={() => this.props.selectPeerUser(it)}
             >
-              <img className="user__pic" src={it.data().photoUrl} alt="" />
+              <img
+                className="user__pic"
+                src={it.data().photoUrl}
+                alt="avatar"
+              />
               <div className="user__info">
                 <span className="user__name">{it.data().name}</span>
               </div>

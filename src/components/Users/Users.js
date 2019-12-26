@@ -5,12 +5,20 @@ class Users extends Component {
   render() {
     return (
       <ul className="users">
-        <li className="user">
-          <img className="user__pic" src="" alt="" />
-          <div className="user__info">
-            <span className="user__name">Name Lastname</span>
-          </div>
-        </li>
+        {this.props.users.map((it, index) => {
+          return (
+            <li
+              className="user"
+              key={index}
+              // onClick={() => this.props.selectPeerUser(it)}
+            >
+              <img className="user__pic" src={it.data().photoUrl} alt="" />
+              <div className="user__info">
+                <span className="user__name">{it.data().name}</span>
+              </div>
+            </li>
+          )
+        })}
       </ul>
     )
   }

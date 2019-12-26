@@ -31,7 +31,7 @@ class Main extends Component {
   }
 
   selectPeerUser = currentPeerUser => {
-    this.setState({ currentPeerUser: currentPeerUser.data() })
+    this.setState({ currentPeerUser })
   }
 
   render() {

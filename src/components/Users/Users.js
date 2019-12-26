@@ -10,7 +10,7 @@ class Users extends Component {
             <li
               className="user"
               key={index}
-              // onClick={() => this.props.selectPeerUser(it)}
+              onClick={() => this.props.selectPeerUser(it.data())}
             >
               <img
                 className="user__pic"

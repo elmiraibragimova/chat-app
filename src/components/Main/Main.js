@@ -47,13 +47,7 @@ class Main extends Component {
         </aside>
 
         <main className="layout__main">
-          {/* <section>
-            <Intro />
-          </section> */}
-
-          <section>
-            <Board />
-          </section>
+          {this.state.currentPeerUser ? <Board /> : <Intro />}
         </main>
       </section>
     )

@@ -93,8 +93,12 @@ class Board extends Component {
     return (
       <article className="board">
         <header className="board__header">
-          <img className="" src="" alt="" />
-          <span className=""></span>
+          <img
+            className="board__user-pic"
+            src={this.currentPeerUser.photoUrl}
+            alt=""
+          />
+          <span className="">{this.currentPeerUser.name}</span>
         </header>
 
         <section className="board__messages">

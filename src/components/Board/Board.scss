@@ -21,28 +21,3 @@
     height: 80px;
   }
 }
-
-.message {
-  display: flex;
-
-  p {
-    display: inline-block;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 5px;
-  }
-
-  &_in {
-    p {
-      background-color: #eee;
-    }
-  }
-
-  &_out {
-    p {
-      background-color: #b3e0d4;
-    }
-  }
-}

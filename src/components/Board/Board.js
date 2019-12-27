@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import moment from 'moment'
 import { App } from '../../app'
 import Form from '../Form/Form'
+import Message from '../Message/Message'
 import { hashString } from '../../helpers'
 import './Board.scss'
 
@@ -97,21 +98,14 @@ class Board extends Component {
         </header>
 
         <section className="board__messages">
-          {this.state.messages.map((it, index) => {
-            if (it.type === 'text') {
-              return (
-                <div
-                  key={it.timestamp}
-                  className={`message ${
-                    it.from === this.currentUserId
-                      ? 'message_out'
-                      : 'message_in'
-                  }`}
-                >
-                  <p>{it.content}</p>
-                </div>
-              )
-            }
+          {this.state.messages.map(it => {
+            return (
+              <Message
+                currentUserId={this.currentUserId}
+                key={it.timestamp}
+                message={it}
+              />
+            )
           })}
         </section>
 

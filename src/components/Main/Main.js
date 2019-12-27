@@ -43,11 +43,16 @@ class Main extends Component {
           <Users
             users={this.state.users}
             selectPeerUser={this.selectPeerUser}
+            currentPeerUser={this.state.currentPeerUser}
           />
         </aside>
 
         <main className="layout__main">
-          {this.state.currentPeerUser ? <Board /> : <Intro />}
+          {this.state.currentPeerUser ? (
+            <Board currentPeerUser={this.state.currentPeerUser} />
+          ) : (
+            <Intro />
+          )}
         </main>
       </section>
     )

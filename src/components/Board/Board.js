@@ -9,21 +9,16 @@ import './Board.scss'
 class Board extends Component {
   constructor(props) {
     super(props)
-
     this.unsubscribe = null
-
     const currentUser = firebase.auth().currentUser
     this.currentUserId = currentUser.uid
-
     this.currentPeerUser = this.props.currentPeerUser
-
     this.chatId = null
-
-    this.messages = []
   }
 
   state = {
-    isLoading: false
+    isLoading: false,
+    messages: []
   }
 
   componentDidMount() {
@@ -54,7 +49,9 @@ class Board extends Component {
         snapshot => {
           snapshot.docChanges().forEach(change => {
             if (change.type === 'added') {
-              this.messages.push(change.doc.data())
+              const messages = [...this.state.messages]
+              messages.push(change.doc.data())
+              this.setState({ messages })
             }
             this.setState({ isLoading: false })
           })
@@ -100,12 +97,22 @@ class Board extends Component {
         </header>
 
         <section className="board__messages">
-          <div className="message message_in">
-            <p>Some text for me</p>
-          </div>
-          <div className="message message_out">
-            <p>Some text from me</p>
-          </div>
+          {this.state.messages.map((it, index) => {
+            if (it.type === 'text') {
+              return (
+                <div
+                  key={it.timestamp}
+                  className={`message ${
+                    it.from === this.currentUserId
+                      ? 'message_out'
+                      : 'message_in'
+                  }`}
+                >
+                  <p>{it.content}</p>
+                </div>
+              )
+            }
+          })}
         </section>
 
         <Form sendMessage={this.sendMessage} />

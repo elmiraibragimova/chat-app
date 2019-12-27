@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
+import moment from 'moment'
 import { App } from '../../app'
+import Form from '../Form/Form'
+import { hashString } from '../../helpers'
 import './Board.scss'
 
 class Board extends Component {
@@ -11,6 +14,8 @@ class Board extends Component {
 
     const currentUser = firebase.auth().currentUser
     this.currentUserId = currentUser.uid
+
+    this.currentPeerUser = this.props.currentPeerUser
 
     this.chatId = null
 
@@ -34,13 +39,10 @@ class Board extends Component {
   updateMessages = () => {
     this.setState({ isLoading: true })
 
-    if (
-      this.hashString(this.currentUserId) <=
-      this.hashString(this.props.currentPeerUser.id)
-    ) {
-      this.chatId = `${this.currentUserId}-${this.props.currentPeerUser.id}`
+    if (hashString(this.currentUserId) <= hashString(this.currentPeerUser.id)) {
+      this.chatId = `${this.currentUserId}-${this.currentPeerUser.id}`
     } else {
-      this.chatId = `${this.props.currentPeerUser.id}-${this.currentUserId}`
+      this.chatId = `${this.currentPeerUser.id}-${this.currentUserId}`
     }
 
     this.messageListener = firebase
@@ -63,13 +65,30 @@ class Board extends Component {
       )
   }
 
-  hashString = str => {
-    let hash = 0
-    for (let i = 0; i < str.length; i++) {
-      hash += (str.charCodeAt(i) * 31) ** (str.length - i)
-      hash = hash & hash
+  sendMessage = (content, type) => {
+    const timestamp = moment()
+      .valueOf()
+      .toString()
+
+    const message = {
+      content,
+      type,
+      timestamp,
+      from: this.currentUserId,
+      to: this.currentPeerUser.id
     }
-    return hash
+
+    firebase
+      .firestore()
+      .collection(App.MESSAGES)
+      .doc(this.chatId)
+      .collection(this.chatId)
+      .doc(timestamp)
+      .set(message)
+      .then(() => {})
+      .catch(err => {
+        console.error(`error in sendMessage: ${err.toString()}`)
+      })
   }
 
   render() {
@@ -89,10 +108,7 @@ class Board extends Component {
           </div>
         </section>
 
-        <form className="board__form form" action="">
-          <textarea className="form__field" name=""></textarea>
-          <button className="form__send-button">Send</button>
-        </form>
+        <Form sendMessage={this.sendMessage} />
       </article>
     )
   }

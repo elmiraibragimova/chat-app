@@ -22,28 +22,6 @@
   }
 }
 
-.form {
-  display: flex;
-  border-top: 1px solid #ccc;
-
-  &__field {
-    flex-grow: 1;
-    resize: none;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-  }
-
-  &__send-button {
-    padding-left: 20px;
-    padding-right: 20px;
-    border: none;
-    background-color: var(--maincolor);
-    font-size: 20px;
-    color: #fff;
-  }
-}
-
 .message {
   display: flex;
 

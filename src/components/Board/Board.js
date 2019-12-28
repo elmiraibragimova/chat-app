@@ -13,7 +13,6 @@ class Board extends Component {
     this.unsubscribe = null
     const currentUser = firebase.auth().currentUser
     this.currentUserId = currentUser.uid
-    this.currentPeerUser = this.props.currentPeerUser
     this.chatId = null
   }
 
@@ -26,6 +25,12 @@ class Board extends Component {
     this.updateMessages()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentPeerUser.id !== this.props.currentPeerUser.id) {
+      this.updateMessages()
+    }
+  }
+
   componentWillUnmount() {
     if (this.unsubscribe) {
       this.unsubscribe()
@@ -33,12 +38,15 @@ class Board extends Component {
   }
 
   updateMessages = () => {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true, messages: [] })
 
-    if (hashString(this.currentUserId) <= hashString(this.currentPeerUser.id)) {
-      this.chatId = `${this.currentUserId}-${this.currentPeerUser.id}`
+    if (
+      hashString(this.currentUserId) <=
+      hashString(this.props.currentPeerUser.id)
+    ) {
+      this.chatId = `${this.currentUserId}-${this.props.currentPeerUser.id}`
     } else {
-      this.chatId = `${this.currentPeerUser.id}-${this.currentUserId}`
+      this.chatId = `${this.props.currentPeerUser.id}-${this.currentUserId}`
     }
 
     this.messageListener = firebase
@@ -73,7 +81,7 @@ class Board extends Component {
       type,
       timestamp,
       from: this.currentUserId,
-      to: this.currentPeerUser.id
+      to: this.props.currentPeerUser.id
     }
 
     firebase
@@ -95,10 +103,10 @@ class Board extends Component {
         <header className="board__header">
           <img
             className="board__user-pic"
-            src={this.currentPeerUser.photoUrl}
+            src={this.props.currentPeerUser.photoUrl}
             alt=""
           />
-          <span className="">{this.currentPeerUser.name}</span>
+          <span className="">{this.props.currentPeerUser.name}</span>
         </header>
 
         <section className="board__messages">

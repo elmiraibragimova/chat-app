@@ -6,6 +6,12 @@
     "header  header"
     "sidebar main";
   height: 100vh;
+  width: 90%;
+  max-width: 980px;
+  margin: auto;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
+  background-color: #fff;
 
 
   &__header {

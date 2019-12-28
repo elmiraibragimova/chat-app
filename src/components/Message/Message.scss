@@ -1,6 +1,10 @@
 .message {
   display: flex;
 
+  &__content {
+    //display: flex;
+  }
+
   p {
     display: inline-block;
     padding-top: 5px;
@@ -13,14 +17,24 @@
   }
 
   &_in {
+    justify-content: flex-start;
+
     p {
       background-color: #eee;
     }
   }
 
   &_out {
+    justify-content: flex-end;
+
     p {
       background-color: #b3e0d4;
     }
+  }
+
+  &__image {
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
   }
 }

@@ -31,6 +31,7 @@ class Main extends Component {
   }
 
   selectPeerUser = currentPeerUser => {
+    console.log(currentPeerUser)
     this.setState({ currentPeerUser })
   }
 

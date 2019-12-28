@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { firebaseApp } from '../../database'
-import { App } from '../../app'
 import './Profile.scss'
 
 class Profile extends Component {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
+import { firebaseApp } from '../../database'
 import Header from '../Header/Header'
 import Intro from '../Intro/Intro'
 import Users from '../Users/Users'
@@ -11,11 +12,22 @@ class Main extends Component {
   state = {
     isLoading: false,
     currentPeerUser: null,
-    users: []
+    users: [],
+    currentUserName: '',
+    currentUserPhotoUrl: ''
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.updateUsersList()
+
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({
+          currentUserName: user.displayName,
+          currentUserPhotoUrl: user.photoURL
+        })
+      }
+    })
   }
 
   updateUsersList = async () => {
@@ -31,14 +43,18 @@ class Main extends Component {
   }
 
   selectPeerUser = currentPeerUser => {
-    console.log(currentPeerUser)
     this.setState({ currentPeerUser })
   }
 
   render() {
     return (
       <section className="layout">
-        <Header className="layout__header" history={this.props.history} />
+        <Header
+          className="layout__header"
+          currentUserName={this.state.currentUserName}
+          currentUserPhotoUrl={this.state.currentUserPhotoUrl}
+          history={this.props.history}
+        />
 
         <aside className="layout__sidebar">
           <Users

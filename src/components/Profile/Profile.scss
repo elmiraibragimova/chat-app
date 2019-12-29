@@ -1,6 +1,13 @@
 .profile {
   display: flex;
   height: 100vh;
+  width: 90%;
+  max-width: 980px;
+  margin: auto;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
+  background-color: #fff;
+
 
   &__group {
     display: flex;
@@ -40,5 +47,11 @@
     padding-bottom: 10px;
     border: none;
     background-color: var(--maincolor);
+  }
+
+  &__back-link {
+    display: block;
+    text-decoration: none;
+    padding: 20px;
   }
 }

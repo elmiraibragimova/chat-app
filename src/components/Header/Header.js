@@ -10,14 +10,18 @@ class Header extends Component {
   }
 
   render() {
+    const { currentUserName, currentUserPhotoUrl } = this.props
     return (
       <header className={`${this.props.className} header`}>
-        {/* <div className="user">
-          <img className="user__pic" src="" alt="" />
-          <span className="user__name"></span>
-        </div> */}
         <Link className={'link-to-profile'} to="/profile">
-          Profile
+          <div className="header__user">
+            <img
+              className="header__user-pic"
+              src={currentUserPhotoUrl}
+              alt="Avatar"
+            />
+            <span className="header__user-name">{currentUserName}</span>
+          </div>
         </Link>
         <button className="logout-button" onClick={this.logout}>
           Log out

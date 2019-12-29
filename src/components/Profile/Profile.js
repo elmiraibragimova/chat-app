@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { firebaseApp } from '../../database'
 import './Profile.scss'
 
@@ -22,6 +23,11 @@ class Profile extends Component {
   render() {
     return (
       <article className="profile">
+        <div className="profile__back">
+          <Link className={'profile__back-link'} to="/main">
+            Back
+          </Link>
+        </div>
         <div className="profile__group">
           <img className="profile__pic" src={this.state.photoUrl} alt="" />
           <div>

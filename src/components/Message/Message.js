@@ -5,6 +5,7 @@ import './Message.scss'
 class Message extends Component {
   render() {
     const { type, timestamp, from, content } = this.props.message
+    const dateTime = moment(parseInt(timestamp, 10)).format('MM-DD-YYYY hh:mm')
     const time = moment(parseInt(timestamp, 10)).format('hh:mm')
 
     return (
@@ -15,7 +16,7 @@ class Message extends Component {
         }`}
       >
         <div className="message__content">
-          <time className="message__time" dateTime={time}>
+          <time className="message__time" dateTime={dateTime}>
             {time}
           </time>
           {type === 'text' && <p>{content}</p>}

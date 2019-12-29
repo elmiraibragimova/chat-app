@@ -6,7 +6,6 @@ import './Form.scss'
 class Form extends Component {
   state = {
     text: '',
-    photoFile: null,
     isLoading: false
   }
 

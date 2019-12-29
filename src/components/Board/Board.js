@@ -38,6 +38,9 @@ class Board extends Component {
   }
 
   updateMessages = () => {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
     this.setState({ isLoading: true, messages: [] })
 
     if (
@@ -49,7 +52,7 @@ class Board extends Component {
       this.chatId = `${this.props.currentPeerUser.id}-${this.currentUserId}`
     }
 
-    this.messageListener = firebase
+    this.unsubscribe = firebase
       .firestore()
       .collection(App.MESSAGES)
       .doc(this.chatId)

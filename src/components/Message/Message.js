@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import './Message.scss'
 
 class Message extends Component {
   render() {
     const { type, timestamp, from, content } = this.props.message
+    const time = moment(parseInt(timestamp, 10)).format('hh:mm')
 
     return (
       <div
@@ -13,6 +15,9 @@ class Message extends Component {
         }`}
       >
         <div className="message__content">
+          <time className="message__time" dateTime={time}>
+            {time}
+          </time>
           {type === 'text' && <p>{content}</p>}
 
           {type === 'image' && (

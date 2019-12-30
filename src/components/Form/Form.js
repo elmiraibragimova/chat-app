@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { firebaseApp } from '../../database'
+import { ReactComponent as Send } from './images/send.svg'
+import { ReactComponent as Paperclip } from './images/paperclip.svg'
 import './Form.scss'
 
 class Form extends Component {
+  attachmentRef = React.createRef()
+
   state = {
     text: '',
     isLoading: false
@@ -68,15 +72,16 @@ class Form extends Component {
   render() {
     return (
       <form className="board__form form" action="">
+        <div onClick={() => this.attachmentRef.current.click()}>
+          <Paperclip />
+        </div>
         <input
+          ref={this.attachmentRef}
           accept="image/*"
           className="form__add-image"
           type="file"
           onChange={this.onChoosePhoto}
         />
-        <button onClick={this.onSendSticker} className="form__send-button">
-          Send sticker
-        </button>
         <input
           value={this.state.text}
           onChange={this.updateText}
@@ -84,7 +89,7 @@ class Form extends Component {
           name=""
         />
         <button onClick={this.onSendText} className="form__send-button">
-          Send
+          <Send />
         </button>
       </form>
     )

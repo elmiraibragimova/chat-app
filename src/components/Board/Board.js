@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
+import { firebaseApp } from '../../database'
 import moment from 'moment'
 import { App } from '../../app'
 import Form from '../Form/Form'
@@ -11,7 +11,7 @@ class Board extends Component {
   constructor(props) {
     super(props)
     this.unsubscribe = null
-    const currentUser = firebase.auth().currentUser
+    const currentUser = firebaseApp.auth().currentUser
     this.currentUserId = currentUser.uid
     this.chatId = null
   }
@@ -52,7 +52,7 @@ class Board extends Component {
       this.chatId = `${this.props.currentPeerUser.id}-${this.currentUserId}`
     }
 
-    this.unsubscribe = firebase
+    this.unsubscribe = firebaseApp
       .firestore()
       .collection(App.MESSAGES)
       .doc(this.chatId)
@@ -87,7 +87,7 @@ class Board extends Component {
       to: this.props.currentPeerUser.id
     }
 
-    firebase
+    firebaseApp
       .firestore()
       .collection(App.MESSAGES)
       .doc(this.chatId)

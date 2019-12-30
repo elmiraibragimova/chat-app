@@ -32,14 +32,14 @@ class Login extends Component {
   authHandler = async res => {
     const currentUser = res.user
     if (currentUser) {
-      const user = await firebase
+      const user = await firebaseApp
         .firestore()
         .collection(App.USERS)
         .where(App.ID, '==', currentUser.uid)
         .get()
 
       if (user.docs.length === 0) {
-        firebase
+        firebaseApp
           .firestore()
           .collection('users')
           .doc(currentUser.uid)

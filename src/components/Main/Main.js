@@ -20,7 +20,7 @@ class Main extends Component {
   async componentDidMount() {
     this.updateUsersList()
 
-    firebaseApp.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
           currentUserName: user.displayName,
@@ -31,7 +31,7 @@ class Main extends Component {
   }
 
   updateUsersList = async () => {
-    const res = await firebase
+    const res = await firebaseApp
       .firestore()
       .collection(App.USERS)
       .get()

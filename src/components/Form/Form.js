@@ -72,23 +72,24 @@ class Form extends Component {
   render() {
     return (
       <form className="board__form form" action="">
-        <div onClick={() => this.attachmentRef.current.click()}>
-          <Paperclip />
-        </div>
+        <Paperclip
+          className="form__add-image-icon"
+          onClick={() => this.attachmentRef.current.click()}
+        />
         <input
-          ref={this.attachmentRef}
-          accept="image/*"
           className="form__add-image"
+          accept="image/*"
           type="file"
+          ref={this.attachmentRef}
           onChange={this.onChoosePhoto}
         />
         <input
+          className="form__field"
+          placeholder="Write a message..."
           value={this.state.text}
           onChange={this.updateText}
-          className="form__field"
-          name=""
         />
-        <button onClick={this.onSendText} className="form__send-button">
+        <button className="form__send-button" onClick={this.onSendText}>
           <Send />
         </button>
       </form>

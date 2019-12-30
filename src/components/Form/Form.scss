@@ -1,21 +1,32 @@
 .form {
   display: flex;
+  align-items: center;
   border-top: 1px solid #ccc;
 
   &__field {
     flex-grow: 1;
+    padding: 10px 20px;
     resize: none;
     border: none;
-    padding: 10px;
     font-size: 18px;
   }
 
   &__send-button {
-    padding-left: 20px;
-    padding-right: 20px;
+    display: flex;
+    margin-right: 20px;
+    padding-left: 0;
+    padding-right: 0;
     border: none;
-    background-color: var(--maincolor);
-    font-size: 20px;
-    color: #fff;
+  }
+
+  &__add-image {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    width: 30px;
+  }
+
+  &__add-image-icon {
+    margin-left: 20px;
   }
 }

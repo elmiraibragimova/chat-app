@@ -15,15 +15,28 @@ class Message extends Component {
           from === this.props.currentUserId ? 'message_out' : 'message_in'
         }`}
       >
-        <div className="message__content">
-          <time className="message__time" dateTime={dateTime}>
-            {time}
-          </time>
-          {type === 'text' && <p>{content}</p>}
-
-          {type === 'image' && (
-            <img className="message__image" src={content} alt="" />
+        <div className="message__wrapper">
+          {from !== this.props.currentUserId && (
+            <img className="message__pic" src="" alt="" />
           )}
+
+          <div className="message__container">
+            {from !== this.props.currentUserId && (
+              <div className="message__user-name">Name</div>
+            )}
+
+            <div className="message__content">
+              {type === 'text' && <p>{content}</p>}
+
+              {type === 'image' && (
+                <img className="message__image" src={content} alt="" />
+              )}
+            </div>
+
+            <time className="message__time" dateTime={dateTime}>
+              {time}
+            </time>
+          </div>
         </div>
       </div>
     )

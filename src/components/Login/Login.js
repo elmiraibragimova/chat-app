@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactLoading from 'react-loading'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
 import { App } from '../../app'
@@ -10,11 +11,17 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
+    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.authHandler({ user })
       }
     })
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
   }
 
   authenticate = () => {
@@ -23,7 +30,6 @@ class Login extends Component {
     firebaseApp
       .auth()
       .signInWithPopup(provider)
-      .then(this.authHandler)
       .catch(err => {
         this.setState({ isLoading: false })
       })
@@ -67,6 +73,12 @@ class Login extends Component {
         <button className="sign-in-button" onClick={this.authenticate}>
           Sign In With Google
         </button>
+
+        {!!this.state.isLoading && (
+          <div className="login-page__loader">
+            <ReactLoading type="spin" color="#ccc" height="30px" width="30px" />
+          </div>
+        )}
       </article>
     )
   }

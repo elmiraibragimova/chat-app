@@ -20,7 +20,7 @@ class Main extends Component {
   async componentDidMount() {
     this.updateUsersList()
 
-    firebase.auth().onAuthStateChanged(user => {
+    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
           currentUserName: user.displayName,
@@ -28,6 +28,10 @@ class Main extends Component {
         })
       }
     })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   updateUsersList = async () => {

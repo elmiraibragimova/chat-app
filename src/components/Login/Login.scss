@@ -1,6 +1,18 @@
 .login-page {
   display: flex;
   height: 100vh;
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .sign-in-button {

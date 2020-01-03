@@ -1,6 +1,6 @@
 .intro {
   display: flex;
-  height: calc(100vh - var(--headerheight));
+  height: calc(100vh - var(--header-height));
 
   &__text {
     margin: auto;

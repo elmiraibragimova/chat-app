@@ -90,7 +90,7 @@ class Form extends Component {
           onChange={this.updateText}
         />
         <button className="form__send-button" onClick={this.onSendText}>
-          <Send />
+          <Send className="form__send-icon" />
         </button>
       </form>
     )

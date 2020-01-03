@@ -1,7 +1,7 @@
 .board {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--headerheight));
+  height: calc(100vh - var(--header-height));
 
   &__header {
     display: flex;

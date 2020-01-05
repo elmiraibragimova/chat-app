@@ -32,6 +32,7 @@ class Login extends Component {
       .signInWithPopup(provider)
       .catch(err => {
         this.setState({ isLoading: false })
+        this.props.notify('warning', err.message)
       })
   }
 
@@ -57,11 +58,13 @@ class Login extends Component {
           .then(data => {
             this.setState({ isLoading: false }, () => {
               this.props.history.push(`/main`)
+              this.props.notify('success', 'Login success')
             })
           })
       } else {
         this.setState({ isLoading: false }, () => {
           this.props.history.push(`/main`)
+          this.props.notify('success', 'Login success')
         })
       }
     }

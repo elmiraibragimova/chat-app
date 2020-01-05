@@ -58,6 +58,8 @@
   }
 
   &__loader {
-    @include loader
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
   }
 }

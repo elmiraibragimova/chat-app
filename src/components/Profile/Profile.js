@@ -38,11 +38,12 @@ class Profile extends Component {
           this.newPhoto = file
         })
       } else {
-        console.error('This file is not an image')
+        this.props.notify('warning', 'This file is not an image')
+
         return
       }
     } else {
-      console.error('error in updateUserInfo function')
+      this.props.notify('warning', 'Something wrong with input file')
     }
   }
 
@@ -56,7 +57,7 @@ class Profile extends Component {
         'state_changed',
         null,
         err => {
-          console.log(err)
+          this.props.notify('warning', `Error: ${err}`)
         },
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
@@ -90,6 +91,7 @@ class Profile extends Component {
       .update(newUserInfo)
       .then(data => {
         this.setState({ isLoading: false })
+        this.props.notify('success', 'Profile info has been updated')
       })
   }
 
@@ -124,18 +126,18 @@ class Profile extends Component {
           >
             Save
           </button>
-        </div>
 
-        {!!this.state.isLoading && (
-          <div className="profile__loader">
-            <ReactLoading
-              type="spokes"
-              color="#ccc"
-              height="30px"
-              width="30px"
-            />
-          </div>
-        )}
+          {!!this.state.isLoading && (
+            <div className="profile__loader">
+              <ReactLoading
+                type="spokes"
+                color="#ccc"
+                height="30px"
+                width="30px"
+              />
+            </div>
+          )}
+        </div>
       </article>
     )
   }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { firebaseApp } from '../../database'
+import ReactLoading from 'react-loading'
 import moment from 'moment'
+import { firebaseApp } from '../../database'
 import { App } from '../../app'
+import { hashString } from '../../helpers'
 import Form from '../Form/Form'
 import Message from '../Message/Message'
-import { hashString } from '../../helpers'
 import './Board.scss'
 
 class Board extends Component {
@@ -35,6 +36,10 @@ class Board extends Component {
     if (this.unsubscribe) {
       this.unsubscribe()
     }
+  }
+
+  updateLoadingState = isLoading => {
+    this.setState({ isLoading })
   }
 
   updateMessages = () => {
@@ -122,9 +127,23 @@ class Board extends Component {
               />
             )
           })}
+
+          {!!this.state.isLoading && (
+            <div className="board__loader">
+              <ReactLoading
+                type="spin"
+                color="#ccc"
+                height="30px"
+                width="30px"
+              />
+            </div>
+          )}
         </section>
 
-        <Form sendMessage={this.sendMessage} />
+        <Form
+          sendMessage={this.sendMessage}
+          updateLoadingState={this.updateLoadingState}
+        />
       </article>
     )
   }

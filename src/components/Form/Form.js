@@ -9,8 +9,7 @@ class Form extends Component {
   attachmentRef = React.createRef()
 
   state = {
-    text: '',
-    isLoading: false
+    text: ''
   }
 
   updateText = event => {
@@ -30,18 +29,17 @@ class Form extends Component {
 
   onChoosePhoto = event => {
     if (event.target.files && event.target.files[0]) {
-      this.setState({
-        isLoading: true
-      })
+      this.props.updateLoadingState(true)
+
       const fileType = event.target.files[0].type.toString()
       if (fileType.includes('image/')) {
         this.uploadPhoto(event.target.files[0])
       } else {
-        this.setState({ isLoading: false })
+        this.props.updateLoadingState(false)
         console.error('This file is not an image')
       }
     } else {
-      this.setState({ isLoading: false })
+      this.props.updateLoadingState(false)
     }
   }
 
@@ -57,12 +55,12 @@ class Form extends Component {
       'state_changed',
       null,
       err => {
-        this.setState({ isLoading: false })
+        this.props.updateLoadingState(false)
         console.error(`error in uploadPhoto: ${err}`)
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-          this.setState({ isLoading: false })
+          this.props.updateLoadingState(false)
           this.props.sendMessage(downloadURL, 'image')
         })
       }

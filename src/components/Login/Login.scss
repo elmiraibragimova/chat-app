@@ -5,7 +5,7 @@
   height: 100vh;
 
   &__loader {
-    @include full-page-loader
+    @include loader
   }
 }
 

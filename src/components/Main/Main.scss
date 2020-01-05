@@ -30,6 +30,6 @@
   }
 
   &__loader {
-    @include full-page-loader
+    @include loader
   }
 }

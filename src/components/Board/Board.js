@@ -74,7 +74,7 @@ class Board extends Component {
           })
         },
         err => {
-          console.error(`error in updateMessages function: ${err.toString()}`)
+          this.props.notify('warning', `Error: ${err.toString()}`)
         }
       )
   }
@@ -101,7 +101,7 @@ class Board extends Component {
       .set(message)
       .then(() => {})
       .catch(err => {
-        console.error(`error in sendMessage: ${err.toString()}`)
+        this.props.notify('warning', `Error: ${err.toString()}`)
       })
   }
 

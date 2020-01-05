@@ -36,7 +36,7 @@ class Form extends Component {
         this.uploadPhoto(event.target.files[0])
       } else {
         this.props.updateLoadingState(false)
-        console.error('This file is not an image')
+        this.props.notify('warning', 'This file is not an image')
       }
     } else {
       this.props.updateLoadingState(false)
@@ -56,7 +56,7 @@ class Form extends Component {
       null,
       err => {
         this.props.updateLoadingState(false)
-        console.error(`error in uploadPhoto: ${err}`)
+        this.props.notify('warning', `Error: ${err.toString()}`)
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {

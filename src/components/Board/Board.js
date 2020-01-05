@@ -131,7 +131,7 @@ class Board extends Component {
           {!!this.state.isLoading && (
             <div className="board__loader">
               <ReactLoading
-                type="spin"
+                type="spokes"
                 color="#ccc"
                 height="30px"
                 width="30px"

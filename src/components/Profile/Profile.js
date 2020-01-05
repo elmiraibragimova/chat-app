@@ -128,7 +128,12 @@ class Profile extends Component {
 
         {!!this.state.isLoading && (
           <div className="profile__loader">
-            <ReactLoading type="spin" color="#ccc" height="30px" width="30px" />
+            <ReactLoading
+              type="spokes"
+              color="#ccc"
+              height="30px"
+              width="30px"
+            />
           </div>
         )}
       </article>

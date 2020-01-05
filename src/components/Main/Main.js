@@ -81,7 +81,12 @@ class Main extends Component {
 
         {!!this.state.isLoading && (
           <div className="layout__loader">
-            <ReactLoading type="spin" color="#ccc" height="30px" width="30px" />
+            <ReactLoading
+              type="spokes"
+              color="#ccc"
+              height="30px"
+              width="30px"
+            />
           </div>
         )}
       </section>

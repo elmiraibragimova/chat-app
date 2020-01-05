@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactLoading from 'react-loading'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
 import Header from '../Header/Header'
@@ -10,7 +11,7 @@ import './Main.scss'
 
 class Main extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     currentPeerUser: null,
     users: [],
     currentUserName: '',
@@ -44,6 +45,8 @@ class Main extends Component {
       const users = [...res.docs]
       this.setState({ users })
     }
+
+    this.setState({ isLoading: false })
   }
 
   selectPeerUser = currentPeerUser => {
@@ -75,6 +78,12 @@ class Main extends Component {
             <Intro />
           )}
         </main>
+
+        {!!this.state.isLoading && (
+          <div className="layout__loader">
+            <ReactLoading type="spin" color="#ccc" height="30px" width="30px" />
+          </div>
+        )}
       </section>
     )
   }

@@ -61,6 +61,7 @@ class Main extends Component {
           currentUserName={this.state.currentUserName}
           currentUserPhotoUrl={this.state.currentUserPhotoUrl}
           history={this.props.history}
+          notify={this.props.notify}
         />
 
         <aside className="layout__sidebar">

@@ -7,6 +7,7 @@ class Header extends Component {
   logout = async () => {
     await firebase.auth().signOut()
     this.props.history.push(`/`)
+    this.props.notify('success', 'Logout success')
   }
 
   render() {

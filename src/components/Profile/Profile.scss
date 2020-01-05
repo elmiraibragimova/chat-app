@@ -17,7 +17,11 @@
     margin: auto;
   }
 
-  &__pic {
+  &__avatar-group {
+    position: relative;
+  }
+
+  &__avatar {
     display: block;
     width: 150px;
     height: 150px;
@@ -26,6 +30,16 @@
     margin-bottom: 30px;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
+  }
+
+  &__file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: -1;
+    width: 0;
   }
 
   &__label {
@@ -49,6 +63,11 @@
     padding-bottom: 10px;
     border: none;
     background-color: var(--main-color);
+
+    &:disabled,
+    &[disabled] {
+      opacity: 0.3;
+    }
   }
 
   &__back-link {
@@ -61,5 +80,6 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    height: 30px;
   }
 }

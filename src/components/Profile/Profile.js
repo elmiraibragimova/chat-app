@@ -5,6 +5,8 @@ import { firebaseApp } from '../../database'
 import './Profile.scss'
 
 class Profile extends Component {
+  photoInputRef = React.createRef()
+
   constructor(props) {
     super(props)
     this.newPhoto = null
@@ -12,6 +14,7 @@ class Profile extends Component {
 
   state = {
     isLoading: false,
+    isDisabled: false,
     name: '',
     photoUrl: '',
     id: ''
@@ -48,7 +51,10 @@ class Profile extends Component {
   }
 
   saveUserInfo = () => {
-    this.setState({ isLoading: true })
+    this.setState({
+      isLoading: true,
+      isDisabled: true
+    })
 
     if (this.newPhoto) {
       const storageRef = firebaseApp.storage().ref()
@@ -90,7 +96,10 @@ class Profile extends Component {
       .doc(this.state.id)
       .update(newUserInfo)
       .then(data => {
-        this.setState({ isLoading: false })
+        this.setState({
+          isLoading: false,
+          isDisabled: false
+        })
         this.props.notify('success', 'Profile info has been updated')
       })
   }
@@ -104,9 +113,20 @@ class Profile extends Component {
           </Link>
         </div>
         <div className="profile__group">
-          <div className="profile__pic-group">
-            <img className="profile__pic" src={this.state.photoUrl} alt="" />
-            <input type="file" accept="image/*" onChange={this.onChangePhoto} />
+          <div className="profile__avatar-group">
+            <img
+              className="profile__avatar"
+              src={this.state.photoUrl}
+              alt={`${this.state.name} avatar. Click to change it`}
+              onClick={() => this.photoInputRef.current.click()}
+            />
+            <input
+              className="profile__file-input"
+              type="file"
+              accept="image/*"
+              ref={this.photoInputRef}
+              onChange={this.onChangePhoto}
+            />
           </div>
 
           <div>
@@ -121,22 +141,23 @@ class Profile extends Component {
             />
           </div>
           <button
-            onClick={this.saveUserInfo}
             className="profile__update-button"
+            disabled={this.state.isDisabled}
+            onClick={this.saveUserInfo}
           >
             Save
           </button>
 
-          {!!this.state.isLoading && (
-            <div className="profile__loader">
+          <div className="profile__loader">
+            {!!this.state.isLoading && (
               <ReactLoading
                 type="spokes"
                 color="#ccc"
                 height="30px"
                 width="30px"
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </article>
     )

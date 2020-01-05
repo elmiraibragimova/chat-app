@@ -32,6 +32,6 @@
 
   &__loader {
     @include loader;
-    background-color: rgba($color: #f1f1f1, $alpha: 0.5);
+    background-color: rgba($color: #fff, $alpha: 0.5);
   }
 }

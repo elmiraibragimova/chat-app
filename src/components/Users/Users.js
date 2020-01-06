@@ -8,14 +8,19 @@ class Users extends Component {
         {this.props.users.map((it, index) => {
           return (
             <li
-              className="user"
+              className={
+                this.props.currentPeerUser &&
+                this.props.currentPeerUser.id === it.data().id
+                  ? 'user user_active'
+                  : 'user'
+              }
               key={index}
               onClick={() => this.props.selectPeerUser(it.data())}
             >
               <img
-                className="user__pic"
+                className="user__avatar"
                 src={it.data().photoUrl}
-                alt="avatar"
+                alt={`${it.data().name} avatar`}
               />
               <div className="user__info">
                 <span className="user__name">{it.data().name}</span>

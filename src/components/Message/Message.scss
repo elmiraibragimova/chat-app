@@ -5,10 +5,7 @@
 
   &__wrapper {
     display: flex;
-  }
-
-  &__content {
-    display: flex;
+    max-width: 60%;
   }
 
   &__container {
@@ -31,7 +28,6 @@
 
   p {
     display: inline-block;
-    max-width: 60%;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 15px;
@@ -54,7 +50,6 @@
     justify-content: flex-end;
 
     p {
-      margin-left: auto;
       background-color: var(--accent-color);
       border-top-right-radius: 2px;
     }

@@ -1,0 +1,51 @@
+.dialog {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color: #000, $alpha: 0.5);
+
+  &__container {
+    width: 410px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 2px;
+  }
+
+  &__title {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: var(--main-color);
+  }
+
+  &__controls {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  %btn {
+    width: 120px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__btn-yes {
+    @extend %btn;
+    margin-right: 40px;
+    background-color: var(--main-color);
+  }
+
+  &__btn-cancel {
+    @extend %btn;
+    background-color: #bbb;
+  }
+}

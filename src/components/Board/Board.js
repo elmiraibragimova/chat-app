@@ -116,6 +116,92 @@ class Board extends Component {
     }
   }
 
+  devideMessagesByDays = () => {
+    const allDays = this.state.messages.reduce((days, it, index, messages) => {
+      let isNewDay
+      let day = []
+
+      if (index === 0) {
+        day.push(it)
+        return [day]
+      }
+
+      if (index > 0) {
+        isNewDay = moment(parseInt(it.timestamp, 10)).isAfter(
+          parseInt(messages[index - 1].timestamp, 10),
+          'day'
+        )
+
+        if (isNewDay) {
+          day.push(it)
+          return [...days, day]
+        } else {
+          days[days.length - 1].push(it)
+          return [...days]
+        }
+      }
+    }, [])
+
+    return allDays
+  }
+
+  renderMessages = () => {
+    let messages = this.devideMessagesByDays()
+
+    messages = messages.map((it, index) => {
+      const day = moment(parseInt(it[0].timestamp, 10)).format('DD MMMM YYYY')
+
+      return (
+        <div className="board__day" key={`${index}-${it[0].timestamp}`}>
+          <div className="board__date">{day}</div>
+          {it.map(message => {
+            return (
+              <Message
+                currentPeerUser={this.props.currentPeerUser}
+                currentUserId={this.currentUserId}
+                message={message}
+                key={message.timestamp}
+              />
+            )
+          })}
+        </div>
+      )
+    })
+
+    // const messages = this.state.messages.map((it, index, messages) => {
+    //   let day
+    //   let isNewDay
+
+    //   if (index === 0) {
+    //     isNewDay = true
+    //     day = moment(parseInt(it.timestamp, 10)).format('MM-DD-YYYY')
+    //   }
+
+    //   if (index > 0) {
+    //     isNewDay = moment(parseInt(it.timestamp, 10)).isAfter(
+    //       parseInt(messages[index - 1].timestamp, 10),
+    //       'day'
+    //     )
+    //     if (isNewDay) {
+    //       day = moment(parseInt(it.timestamp, 10)).format('MM-DD-YYYY')
+    //     }
+    //   }
+
+    //   return (
+    //     <div key={it.timestamp}>
+    //       {isNewDay && day}
+    //       <Message
+    //         currentPeerUser={this.props.currentPeerUser}
+    //         currentUserId={this.currentUserId}
+    //         message={it}
+    //       />
+    //     </div>
+    //   )
+    // })
+
+    return messages
+  }
+
   render() {
     return (
       <article className="board">
@@ -140,16 +226,7 @@ class Board extends Component {
         </header>
 
         <section className="board__messages">
-          {this.state.messages.map((it, index, messages) => {
-            return (
-              <Message
-                currentPeerUser={this.props.currentPeerUser}
-                currentUserId={this.currentUserId}
-                key={it.timestamp}
-                message={it}
-              />
-            )
-          })}
+          {this.renderMessages()}
 
           <div className="board__message-end" ref={this.messageEnd}></div>
 

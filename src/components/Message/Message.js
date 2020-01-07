@@ -8,6 +8,11 @@ class Message extends Component {
     const dateTime = moment(parseInt(timestamp, 10)).format('MM-DD-YYYY hh:mm')
     const time = moment(parseInt(timestamp, 10)).format('hh:mm')
 
+    const {
+      photoUrl: peerPhotoUrl,
+      name: peerName
+    } = this.props.currentPeerUser
+
     return (
       <div
         key={timestamp}
@@ -17,12 +22,16 @@ class Message extends Component {
       >
         <div className="message__wrapper">
           {from !== this.props.currentUserId && (
-            <img className="message__pic" src="" alt="" />
+            <img
+              className="message__avatar"
+              src={peerPhotoUrl}
+              alt={`${peerPhotoUrl} avatar`}
+            />
           )}
 
           <div className="message__container">
             {from !== this.props.currentUserId && (
-              <div className="message__user-name">Name</div>
+              <div className="message__user-name">{peerName}</div>
             )}
 
             <div className="message__content">

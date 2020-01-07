@@ -133,6 +133,7 @@ class Board extends Component {
           {this.state.messages.map(it => {
             return (
               <Message
+                currentPeerUser={this.props.currentPeerUser}
                 currentUserId={this.currentUserId}
                 key={it.timestamp}
                 message={it}

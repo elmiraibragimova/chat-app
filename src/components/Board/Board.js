@@ -10,6 +10,8 @@ import { ReactComponent as Bookmark } from './images/bookmark.svg'
 import './Board.scss'
 
 class Board extends Component {
+  messageEnd = React.createRef()
+
   constructor(props) {
     super(props)
     this.unsubscribe = null
@@ -31,6 +33,8 @@ class Board extends Component {
     if (prevProps.currentPeerUser.id !== this.props.currentPeerUser.id) {
       this.updateMessages()
     }
+
+    this.scrollToBottom()
   }
 
   componentWillUnmount() {
@@ -106,6 +110,12 @@ class Board extends Component {
       })
   }
 
+  scrollToBottom = () => {
+    if (this.messageEnd) {
+      this.messageEnd.current.scrollIntoView()
+    }
+  }
+
   render() {
     return (
       <article className="board">
@@ -130,7 +140,7 @@ class Board extends Component {
         </header>
 
         <section className="board__messages">
-          {this.state.messages.map(it => {
+          {this.state.messages.map((it, index, messages) => {
             return (
               <Message
                 currentPeerUser={this.props.currentPeerUser}
@@ -140,6 +150,8 @@ class Board extends Component {
               />
             )
           })}
+
+          <div className="board__message-end" ref={this.messageEnd}></div>
 
           {this.state.messages.length === 0 && !this.state.isLoading && (
             <div className="board__empty">

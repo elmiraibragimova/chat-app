@@ -15,7 +15,8 @@ class Main extends Component {
     currentPeerUser: null,
     users: [],
     currentUserName: '',
-    currentUserPhotoUrl: ''
+    currentUserPhotoUrl: '',
+    currentUserId: ''
   }
 
   async componentDidMount() {
@@ -25,7 +26,8 @@ class Main extends Component {
       if (user) {
         this.setState({
           currentUserName: user.displayName,
-          currentUserPhotoUrl: user.photoURL
+          currentUserPhotoUrl: user.photoURL,
+          currentUserId: user.uid
         })
       }
     })
@@ -67,8 +69,9 @@ class Main extends Component {
         <aside className="layout__sidebar">
           <Users
             users={this.state.users}
-            selectPeerUser={this.selectPeerUser}
+            currentUserId={this.state.currentUserId}
             currentPeerUser={this.state.currentPeerUser}
+            selectPeerUser={this.selectPeerUser}
           />
         </aside>
 

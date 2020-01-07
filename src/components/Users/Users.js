@@ -23,7 +23,11 @@ class Users extends Component {
                 alt={`${it.data().name} avatar`}
               />
               <div className="user__info">
-                <span className="user__name">{it.data().name}</span>
+                <span className="user__name">
+                  {this.props.currentUserId === it.data().id
+                    ? 'Saved messages'
+                    : it.data().name}
+                </span>
               </div>
             </li>
           )

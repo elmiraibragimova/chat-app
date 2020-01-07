@@ -26,6 +26,10 @@
     border-radius: 50%;
   }
 
+  &__name {
+    font-weight: bold;
+  }
+
   &__info {
     display: flex;
     align-items: center;

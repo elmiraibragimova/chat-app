@@ -22,12 +22,19 @@
     overflow-y: scroll;
   }
 
-  &__user-pic {
-    width: 45px;
-    height: 45px;
-    margin-right: 10px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
+  &__user-avatar {
+    @extend %image;
+  }
+
+  &__bookmark-container {
+    @extend %image;
+    display: flex;
+    background-color: var(--main-color);
+  }
+
+  &__bookmark {
+    margin: auto;
+    fill: #fff;
   }
 
   &__loader {
@@ -47,4 +54,11 @@
   &__empty-text {
     margin: auto;
   }
+}
+
+%image {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  border-radius: 50%;
 }

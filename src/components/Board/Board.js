@@ -6,6 +6,7 @@ import { App } from '../../app'
 import { hashString } from '../../helpers'
 import Form from '../Form/Form'
 import Message from '../Message/Message'
+import { ReactComponent as Bookmark } from './images/bookmark.svg'
 import './Board.scss'
 
 class Board extends Component {
@@ -109,12 +110,23 @@ class Board extends Component {
     return (
       <article className="board">
         <header className="board__header">
-          <img
-            className="board__user-pic"
-            src={this.props.currentPeerUser.photoUrl}
-            alt=""
-          />
-          <span className="">{this.props.currentPeerUser.name}</span>
+          {this.props.currentPeerUser.id === this.currentUserId ? (
+            <div className="board__bookmark-container">
+              <Bookmark className="board__bookmark" />
+            </div>
+          ) : (
+            <img
+              className="board__user-avatar"
+              src={this.props.currentPeerUser.photoUrl}
+              alt={`${this.props.currentPeerUser.photoUrl} avatar`}
+            />
+          )}
+
+          <span className="">
+            {this.props.currentPeerUser.id === this.currentUserId
+              ? 'Saved messages'
+              : this.props.currentPeerUser.name}
+          </span>
         </header>
 
         <section className="board__messages">

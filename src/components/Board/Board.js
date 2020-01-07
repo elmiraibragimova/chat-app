@@ -149,7 +149,16 @@ class Board extends Component {
     let messages = this.devideMessagesByDays()
 
     messages = messages.map((it, index) => {
-      const day = moment(parseInt(it[0].timestamp, 10)).format('DD MMMM YYYY')
+      const now = moment()
+      const messageTime = parseInt(it[0].timestamp)
+      const isNotCurrentYear = moment(messageTime).isBefore(now, 'year')
+      let day
+
+      if (isNotCurrentYear) {
+        day = moment(messageTime).format('DD MMMM YYYY')
+      } else {
+        day = moment(messageTime).format('DD MMMM')
+      }
 
       return (
         <div className="board__day" key={`${index}-${it[0].timestamp}`}>

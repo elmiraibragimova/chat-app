@@ -28,16 +28,6 @@
     text-align: center;
   }
 
-  %btn {
-    width: 120px;
-    padding: 10px 20px;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-
   &__btn-yes {
     @extend %btn;
     margin-right: 40px;
@@ -48,4 +38,14 @@
     @extend %btn;
     background-color: #bbb;
   }
+}
+
+%btn {
+  width: 120px;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }

@@ -128,6 +128,12 @@ class Board extends Component {
             )
           })}
 
+          {this.state.messages.length === 0 && !this.state.isLoading && (
+            <div className="board__empty">
+              <div className="board__empty-text">No messages here yet</div>
+            </div>
+          )}
+
           {!!this.state.isLoading && (
             <div className="board__loader">
               <ReactLoading

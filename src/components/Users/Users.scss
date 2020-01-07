@@ -15,15 +15,22 @@
   cursor: default;
 
   &_active {
-    background-color: #bde4e1;
+    background-color: var(--accent-color);
   }
 
   &__avatar {
-    width: 45px;
-    height: 45px;
-    margin-right: 10px;
-    flex-shrink: 0;
-    border-radius: 50%;
+    @extend %image;
+  }
+
+  &__bookmark-container {
+    @extend %image;
+    display: flex;
+    background-color: var(--main-color);
+  }
+
+  &__bookmark {
+    margin: auto;
+    fill: #fff;
   }
 
   &__name {
@@ -35,4 +42,12 @@
     align-items: center;
     flex-grow: 1;
   }
+}
+
+%image {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
 }

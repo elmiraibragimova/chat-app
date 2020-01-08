@@ -6,7 +6,7 @@ class Message extends Component {
   render() {
     const { type, timestamp, from, content } = this.props.message
     const dateTime = moment(parseInt(timestamp, 10)).format('MM-DD-YYYY hh:mm')
-    const time = moment(parseInt(timestamp, 10)).format('hh:mm')
+    const time = moment(parseInt(timestamp, 10)).format('HH:MM')
 
     const {
       photoUrl: peerPhotoUrl,

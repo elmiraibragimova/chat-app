@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateUsers } from '../../actions/index'
 import { ReactComponent as Bookmark } from '../Board/images/bookmark.svg'
 import './Users.scss'
 
+const mapStateToProps = state => {
+  return { users: state.users }
+}
+
 class Users extends Component {
+  componentDidMount() {
+    this.props.updateUsers()
+  }
+
   render() {
     return (
       <ul className="users">
@@ -45,4 +55,6 @@ class Users extends Component {
   }
 }
 
-export default Users
+const ConnectedUsers = connect(mapStateToProps, { updateUsers })(Users)
+
+export default ConnectedUsers

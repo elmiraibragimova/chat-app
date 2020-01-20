@@ -4,24 +4,21 @@ import firebase from 'firebase'
 import { firebaseApp } from '../../database'
 import Header from '../Header/Header'
 import Intro from '../Intro/Intro'
-import Users from '../Users/Users'
+import ConnectedUsers from '../Users/Users'
 import Board from '../Board/Board'
 import { App } from '../../constants/app'
 import './Main.scss'
 
 class Main extends Component {
   state = {
-    isLoading: true,
+    isLoading: false,
     currentPeerUser: null,
-    users: [],
     currentUserName: '',
     currentUserPhotoUrl: '',
     currentUserId: ''
   }
 
   async componentDidMount() {
-    this.updateUsersList()
-
     this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
@@ -67,8 +64,7 @@ class Main extends Component {
         />
 
         <aside className="layout__sidebar">
-          <Users
-            users={this.state.users}
+          <ConnectedUsers
             currentUserId={this.state.currentUserId}
             currentPeerUser={this.state.currentPeerUser}
             selectPeerUser={this.selectPeerUser}

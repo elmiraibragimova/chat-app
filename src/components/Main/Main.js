@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 import Intro from '../Intro/Intro'
 import Users from '../Users/Users'
 import Board from '../Board/Board'
-import { App } from '../../app'
+import { App } from '../../constants/app'
 import './Main.scss'
 
 class Main extends Component {

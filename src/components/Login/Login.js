@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactLoading from 'react-loading'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
-import { App } from '../../app'
+import { App } from '../../constants/app'
 import './Login.scss'
 
 class Login extends Component {

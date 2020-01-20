@@ -3,7 +3,15 @@ import ReactLoading from 'react-loading'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
 import { App } from '../../constants/app'
+import { connect } from 'react-redux'
+import { updateCurrentUser } from '../../actions/index'
 import './Login.scss'
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateCurrentUser: currentUser => dispatch(updateCurrentUser(currentUser))
+  }
+}
 
 class Login extends Component {
   state = {
@@ -44,6 +52,14 @@ class Login extends Component {
         .collection(App.USERS)
         .where(App.ID, '==', currentUser.uid)
         .get()
+
+      user.forEach(doc => {
+        this.props.updateCurrentUser({
+          name: doc.data().name,
+          photoUrl: doc.data().photoUrl,
+          id: doc.data().id
+        })
+      })
 
       if (user.docs.length === 0) {
         firebaseApp
@@ -92,4 +108,5 @@ class Login extends Component {
   }
 }
 
-export default Login
+const connectedLogin = connect(null, mapDispatchToProps)(Login)
+export default connectedLogin

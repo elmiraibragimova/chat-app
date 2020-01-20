@@ -1,12 +1,46 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+import firebase from 'firebase'
 import 'react-toastify/dist/ReactToastify.css'
-import Login from './Login/Login'
+import ConnectedLogin from './Login/Login'
 import Main from './Main/Main'
 import Profile from './Profile/Profile'
+import { connect } from 'react-redux'
+import { updateUsers } from '../actions/index'
+import { updateCurrentUser } from '../actions/index'
+
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateCurrentUser: currentUser => dispatch(updateCurrentUser(currentUser)),
+    updateUsers: () => dispatch(updateUsers())
+  }
+}
 
 class Router extends Component {
+  componentDidMount() {
+    this.init()
+  }
+
+  async init() {
+    await this.props.updateUsers()
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const currentUser = this.props.users.filter(it => {
+          return it.id === user.uid
+        })
+        this.props.updateCurrentUser(currentUser)
+      }
+    })
+  }
+
   notify = (type, message) => {
     switch (type) {
       case 'warning':
@@ -28,7 +62,7 @@ class Router extends Component {
           <Route
             exact
             path="/"
-            render={props => <Login {...props} notify={this.notify} />}
+            render={props => <ConnectedLogin {...props} notify={this.notify} />}
           />
           <Route
             exact
@@ -46,4 +80,6 @@ class Router extends Component {
   }
 }
 
-export default Router
+const ConnecedRouter = connect(mapStateToProps, mapDispatchToProps)(Router)
+
+export default ConnecedRouter

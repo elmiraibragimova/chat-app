@@ -54,11 +54,7 @@ class Login extends Component {
         .get()
 
       user.forEach(doc => {
-        this.props.updateCurrentUser({
-          name: doc.data().name,
-          photoUrl: doc.data().photoUrl,
-          id: doc.data().id
-        })
+        this.props.updateCurrentUser(doc)
       })
 
       if (user.docs.length === 0) {

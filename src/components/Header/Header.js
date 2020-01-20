@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../LogoutDialog/LogoutDialog'
 import './Header.scss'
+import { connect } from 'react-redux'
+
+const mapStoreToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
 
 class Header extends Component {
   state = {
@@ -48,4 +55,6 @@ class Header extends Component {
   }
 }
 
-export default Header
+const ConnectedHeader = connect(mapStoreToProps)(Header)
+
+export default ConnectedHeader

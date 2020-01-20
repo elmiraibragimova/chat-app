@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactLoading from 'react-loading'
 import firebase from 'firebase'
 import { firebaseApp } from '../../database'
-import Header from '../Header/Header'
+import ConnectedHeader from '../Header/Header'
 import Intro from '../Intro/Intro'
 import ConnectedUsers from '../Users/Users'
 import Board from '../Board/Board'
@@ -55,7 +55,7 @@ class Main extends Component {
   render() {
     return (
       <section className="layout">
-        <Header
+        <ConnectedHeader
           className="layout__header"
           currentUserName={this.state.currentUserName}
           currentUserPhotoUrl={this.state.currentUserPhotoUrl}

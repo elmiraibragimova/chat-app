@@ -10,9 +10,11 @@ export function updateUsers() {
       .firestore()
       .collection(App.USERS)
       .get()
-      .then(res => {
-        if (res.docs.length > 0) {
-          const users = [...res.docs]
+      .then(querySnapshot => {
+        if (querySnapshot.size > 0) {
+          const users = querySnapshot.docs.map(doc => {
+            return doc.data()
+          })
           dispatch({ type: UPDATE_USERS, payload: users })
         }
       })

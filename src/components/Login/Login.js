@@ -47,17 +47,18 @@ class Login extends Component {
   authHandler = async res => {
     const currentUser = res.user
     if (currentUser) {
-      const user = await firebaseApp
+      const querySnapshot = await firebaseApp
         .firestore()
         .collection(App.USERS)
         .where(App.ID, '==', currentUser.uid)
         .get()
 
-      user.forEach(doc => {
-        this.props.updateCurrentUser(doc)
+      querySnapshot.forEach(doc => {
+        const user = doc.data()
+        this.props.updateCurrentUser(user)
       })
 
-      if (user.docs.length === 0) {
+      if (!querySnapshot.empty) {
         firebaseApp
           .firestore()
           .collection('users')

@@ -12,7 +12,8 @@ import { updateCurrentUser } from '../actions/index'
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    users: state.users,
+    currentUser: state.currentUser
   }
 }
 
@@ -33,9 +34,10 @@ class Router extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const currentUser = this.props.users.filter(it => {
+        const currentUser = this.props.users.find(it => {
           return it.id === user.uid
         })
+
         this.props.updateCurrentUser(currentUser)
       }
     })

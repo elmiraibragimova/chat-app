@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import 'react-toastify/dist/ReactToastify.css'
 import ConnectedLogin from './Login/Login'
 import Main from './Main/Main'
-import Profile from './Profile/Profile'
+import ConnectedProfile from './Profile/Profile'
 import { connect } from 'react-redux'
 import { updateUsers } from '../actions/index'
 import { updateCurrentUser } from '../actions/index'
@@ -74,7 +74,9 @@ class Router extends Component {
           <Route
             exact
             path="/profile"
-            render={props => <Profile {...props} notify={this.notify} />}
+            render={props => (
+              <ConnectedProfile {...props} notify={this.notify} />
+            )}
           />
         </Switch>
       </BrowserRouter>

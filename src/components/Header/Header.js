@@ -31,7 +31,7 @@ class Header extends Component {
         <header className={`${this.props.className} header`}>
           <Link className={'link-to-profile'} to="/profile">
             <div className="header__user">
-              <img className="header__user-pic" src={photoUrl} alt="Avatar" />
+              <img className="header__avatar" src={photoUrl} alt="Avatar" />
               <span className="header__user-name">{name}</span>
             </div>
           </Link>

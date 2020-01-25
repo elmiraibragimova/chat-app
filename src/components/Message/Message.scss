@@ -21,6 +21,7 @@
     border-radius: 50%;
     border: 1px solid #ccc;
     flex-shrink: 0;
+    object-fit: cover;
   }
 
   &__user-name {

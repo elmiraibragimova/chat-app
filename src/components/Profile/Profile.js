@@ -3,9 +3,24 @@ import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 import { firebaseApp } from '../../database'
 import './Profile.scss'
+import { connect } from 'react-redux'
+import { updateCurrentUser } from '../../actions/index'
+
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateCurrentUser: currentUser => dispatch(updateCurrentUser(currentUser))
+  }
+}
 
 class Profile extends Component {
   photoInputRef = React.createRef()
+  nameInputRef = React.createRef()
 
   constructor(props) {
     super(props)
@@ -15,21 +30,17 @@ class Profile extends Component {
   state = {
     isLoading: false,
     isDisabled: false,
-    name: '',
-    photoUrl: '',
-    id: ''
+    currentPhoto: ''
   }
 
-  async componentDidMount() {
-    firebaseApp.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({
-          name: user.displayName,
-          photoUrl: user.photoURL,
-          id: user.uid
-        })
+  static getDerivedStateFromProps(props, state) {
+    if (!state.currentPhoto) {
+      return {
+        currentPhoto: props.currentUser.photoUrl
       }
-    })
+    }
+
+    return null
   }
 
   onChangePhoto = event => {
@@ -37,7 +48,7 @@ class Profile extends Component {
       const fileType = event.target.files[0].type.toString()
       const file = event.target.files[0]
       if (fileType.includes('image/')) {
-        this.setState({ photoUrl: URL.createObjectURL(file) }, () => {
+        this.setState({ currentPhoto: URL.createObjectURL(file) }, () => {
           this.newPhoto = file
         })
       } else {
@@ -58,7 +69,9 @@ class Profile extends Component {
 
     if (this.newPhoto) {
       const storageRef = firebaseApp.storage().ref()
-      const uploadTask = storageRef.child(this.state.id).put(this.newPhoto)
+      const uploadTask = storageRef
+        .child(this.props.currentUser.id)
+        .put(this.newPhoto)
       uploadTask.on(
         'state_changed',
         null,
@@ -81,30 +94,39 @@ class Profile extends Component {
 
     if (isNewPhoto) {
       newUserInfo = {
-        name: this.state.name,
+        name: this.nameInputRef.current.value,
         photoUrl: downloadURL
       }
     } else {
       newUserInfo = {
-        name: this.state.name
+        name: this.nameInputRef.current.value
       }
     }
 
     firebaseApp
       .firestore()
       .collection('users')
-      .doc(this.state.id)
+      .doc(this.props.currentUser.id)
       .update(newUserInfo)
       .then(data => {
         this.setState({
           isLoading: false,
           isDisabled: false
         })
+
+        this.props.updateCurrentUser({
+          ...this.props.currentUser,
+          name: this.nameInputRef.current.value,
+          photoUrl: this.state.currentPhoto
+        })
+
         this.props.notify('success', 'Profile info has been updated')
       })
   }
 
   render() {
+    const { name } = this.props.currentUser || {}
+
     return (
       <article className="profile">
         <div className="profile__back">
@@ -116,8 +138,8 @@ class Profile extends Component {
           <div className="profile__avatar-group">
             <img
               className="profile__avatar"
-              src={this.state.photoUrl}
-              alt={`${this.state.name} avatar. Click to change it`}
+              src={this.state.currentPhoto}
+              alt={`${name} avatar. Click to change it`}
               onClick={() => this.photoInputRef.current.click()}
             />
             <input
@@ -136,10 +158,11 @@ class Profile extends Component {
             <input
               className="profile__field"
               type="text"
-              value={this.state.name}
-              onChange={event => this.setState({ name: event.target.value })}
+              defaultValue={name}
+              ref={this.nameInputRef}
             />
           </div>
+
           <button
             className="profile__update-button"
             disabled={this.state.isDisabled}
@@ -147,7 +170,6 @@ class Profile extends Component {
           >
             Save
           </button>
-
           <div className="profile__loader">
             {!!this.state.isLoading && (
               <ReactLoading
@@ -164,4 +186,6 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+const ConnectedProfile = connect(mapStateToProps, mapDispatchToProps)(Profile)
+
+export default ConnectedProfile

@@ -177,37 +177,6 @@ class Board extends Component {
       )
     })
 
-    // const messages = this.state.messages.map((it, index, messages) => {
-    //   let day
-    //   let isNewDay
-
-    //   if (index === 0) {
-    //     isNewDay = true
-    //     day = moment(parseInt(it.timestamp, 10)).format('MM-DD-YYYY')
-    //   }
-
-    //   if (index > 0) {
-    //     isNewDay = moment(parseInt(it.timestamp, 10)).isAfter(
-    //       parseInt(messages[index - 1].timestamp, 10),
-    //       'day'
-    //     )
-    //     if (isNewDay) {
-    //       day = moment(parseInt(it.timestamp, 10)).format('MM-DD-YYYY')
-    //     }
-    //   }
-
-    //   return (
-    //     <div key={it.timestamp}>
-    //       {isNewDay && day}
-    //       <Message
-    //         currentPeerUser={this.props.currentPeerUser}
-    //         currentUserId={this.currentUserId}
-    //         message={it}
-    //       />
-    //     </div>
-    //   )
-    // })
-
     return messages
   }
 

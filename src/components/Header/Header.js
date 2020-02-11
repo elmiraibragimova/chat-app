@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../LogoutDialog/LogoutDialog'
 import './Header.scss'
@@ -8,8 +7,7 @@ import './Header.scss'
 const Header = ({ className, history, notify }) => {
   const [isLogoutDialogOpen, toggleLogoutDialog] = useState(false)
 
-  const currentUser = useSelector(state => state.currentUser)
-  const { name, photoUrl } = currentUser || {}
+  const { name, photoUrl } = useSelector(state => state.currentUser) || {}
 
   return (
     <>
